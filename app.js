@@ -4,9 +4,14 @@ function updateCaseNumber(isIncreasing) {
     if(isIncreasing == true){
         caseInput.value = parseInt(caseNumber) + 1;
     }
-    else if(isIncreasing == false){
+    else if(caseNumber > 0){
         caseInput.value = caseNumber - 1;
     }
+
+    // update case total
+    const newCaseNumber = parseInt(caseInput.value);
+    const caseTotal = document.getElementById('case-total');
+    caseTotal.innerText = newCaseNumber * 59;
     
 }
 
