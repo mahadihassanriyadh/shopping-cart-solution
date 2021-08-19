@@ -10,12 +10,61 @@ function updateProductNumber(product, isIncreasing, productPrice) {
     }
 
     // update total
-    const newInputNumber = parseInt(productInput.value);
+    const newProductNumber = parseInt(productInput.value);
     const productTotal = document.getElementById(product + '-total');
-    productTotal.innerText = newInputNumber * productPrice;
+    productTotal.innerText = newProductNumber * productPrice;
+
+
+    // subtotal and total update
+    calculateTotal();
     
 }
 
+
+
+function updateTotalPrice(product, productPrice){
+    const productInput = document.getElementById(product + '-number');
+    const productNumber = parseInt(productInput.value);
+    const productTotal = document.getElementById(product + '-total');
+    productTotal.innerText = productNumber * productPrice;
+}
+
+
+
+function getInputValue(product){
+    const productInput = document.getElementById(product + '-number');
+    const productNumber = parseInt(productInput.value);
+    return productNumber;
+}
+
+
+function calculateTotal(){
+    const phoneTotal = getInputValue('phone') * 1219;
+    const caseTotal = getInputValue('case') * 59;
+    const subTotal = phoneTotal + caseTotal;
+    // calculate tax (10% tax)
+    const taxTotal = subTotal * .1;
+    // total
+    const totalPrice = subTotal + taxTotal;
+
+    // update on the html
+    document.getElementById('sub-total').innerText = subTotal;
+    // update tax on the html
+    document.getElementById('tax-amount').innerText = Math.round(taxTotal);
+    // update total on the html
+    document.getElementById('total-price').innerText = Math.round(totalPrice);
+}
+
+
+
+
+
+
+
+// update total price with typing the product number
+document.getElementById('phone-number').addEventListener('keyup', function(){
+    updateTotalPrice('phone', 1219);
+})
 
 // hadnle phone increase decrease events
 document.getElementById('phone-plus').addEventListener('click', function(){
@@ -28,6 +77,10 @@ document.getElementById('phone-minus').addEventListener('click', function(){
 
 
 
+// update total price with typing the product number
+document.getElementById('case-number').addEventListener('keyup', function(){
+    updateTotalPrice('case', 59);
+})
 
 // hadnle case increase decrease events
 document.getElementById('case-plus').addEventListener('click', function(){
